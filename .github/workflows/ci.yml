@@ -32,3 +32,26 @@ jobs:
       - name: Construir frontend
         run: npm run build
 
+      - name: Ejecutar pruebas del frontend
+        run: npm run test
+
+  backend-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Instalar Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Ejecutar pruebas del servidor (Maven)
+        run: chmod +x mvnw && ./mvnw test
