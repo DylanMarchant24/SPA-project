@@ -53,5 +53,11 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Ejecutar pruebas del servidor (Maven)
-        run: chmod +x mvnw && ./mvnw test
+      - name: Compilar y empaquetar el servidor (Maven)
+        run: chmod +x mvnw && ./mvnw clean package
+
+      - name: Subir artefacto del Build (Backend)
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-jar
+          path: backend/target/*.jar
